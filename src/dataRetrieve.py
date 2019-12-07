@@ -40,8 +40,6 @@ for j in analysis["beats"]:
 for k in analysis["bars"]:
     bars.append(k["start"])
 
-print(acousticness)
-
 
 #plt.plot(sectionTempo)
 #plt.show()
