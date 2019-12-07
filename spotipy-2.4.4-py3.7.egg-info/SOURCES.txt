@@ -1,13 +1,10 @@
 CHANGES.txt
 LICENSE.txt
 MANIFEST.in
-files.txt
+README.md
 pip-delete-this-directory.txt
 requirements.txt
-setup.cfg
 setup.py
-docs/_build/dirhtml/_sources/index.txt
-docs/_build/html/_sources/index.txt
 spotipy/__init__.py
 spotipy/client.py
 spotipy/oauth2.py
