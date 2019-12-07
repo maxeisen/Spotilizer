@@ -2,11 +2,12 @@ import spotipy
 import json
 import matplotlib.pyplot as plt
 import authentication
-import CurrentTrackAnalysis
+# import CurrentTrackAnalysis
 
 spotify = authentication.getSpotify()
-song = "https://open.spotify.com/track/4uLU6hMCjMI75M1A2tKUQC"
-#song = CurrentTrackAnalysis.currSong
+currentPlayback = spotify.current_playback()
+song = currentPlayback['item']
+songID = song['id']
 
 sectionLoudness = []
 sectionTempo = []
@@ -18,8 +19,9 @@ segmentTimbre = []
 beats = []
 bars = []
 
-analysis = spotify.audio_analysis(song)
-features = spotify.audio_features(song)
+analysis = spotify.audio_analysis(songID)
+features = spotify.audio_features([songID])
+
 
 energy = features[0]["energy"]
 tempo = features[0]["tempo"]
@@ -39,6 +41,9 @@ for j in analysis["beats"]:
 
 for k in analysis["bars"]:
     bars.append(k["start"])
+
+print(energy)
+
 
 #plt.plot(sectionTempo)
 #plt.show()
