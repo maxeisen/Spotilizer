@@ -4,7 +4,6 @@ import sys
 import json
 import webbrowser
 import spotipy.util as util
-import json.decoder
 
 #put your username here
 username = "0000000000"
