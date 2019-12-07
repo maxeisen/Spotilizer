@@ -14,17 +14,11 @@ def modelSel(lLevel):
     else:
         return 'spiral'
 
-class Mandelbrot:
-    def __init__
+
 
 win = Screen()
 win.setup(width=.75,height=.75)
 t = Turtle(visible= False)
-t2 = Turtle(visible= False)
-tstart(t,win)
-tstart(t2,win)
-t.showturtle()
-t2.showturtle()
 
 
 
