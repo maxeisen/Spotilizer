@@ -5,84 +5,95 @@ import authentication
 
 spotify = authentication.getSpotify()
 currentPlayback = spotify.current_playback()
-print(currentPlayback)
-song = currentPlayback['item']
-songID = song['id']
 
-sectionLoudness = []
-sectionTempo = []
+def dataRetrieve():
+    song = currentPlayback['item']
+    songID = song['id']
 
-segmentLoudness = []
-segmentPitch = []
-segmentTimbre = []
+    analysis = spotify.audio_analysis(songID)
+    features = spotify.audio_features([songID])
 
-beats = []
-bars = []
-sections = []
-segments = []
+    tempo = setTempo(features) # speed of drawing
+    energy = setEnergy(features) #colour palette saturation
+    danceability = setDanceability(features) # colour change frequency
+    acousticness = setAcousticness(features) # warmth/hue of colour palette
 
-analysis = spotify.audio_analysis(songID)
-features = spotify.audio_features([songID])
+    sections = setSections(analysis)
+    sectionLoudness = setSectionLoudness(analysis)
 
-tempo = features[0]["tempo"] # speed of drawing
-energy = features[0]["energy"] #colour palette saturation
-danceability = features[0]["danceability"] # colour change frequency
-acousticness = features[0]["acousticness"] # warmth/hue of colour palette
+    segments = setSegments(analysis)
+    segmentPitch = setSegmentPitch(analysis)
+    segmentTimbre = setSegmentTimbre(analysis)
 
-for c in analysis["sections"]:
-    sectionLoudness.append(c["loudness"])
-    sectionTempo.append(c["tempo"])
-    sections.append(c["start"])
+    beats = setBeats(analysis)
+    bars = setBars(analysis)
 
-for i in analysis["segments"]:
-    segmentPitch.append(i["pitches"])
-    segmentTimbre.append(i["timbre"])
-    segments.append(i["start"])
+    songData = {
+        "tempo": tempo,
+        "energy": energy,
+        "danceability": danceability,
+        "acousticness": acousticness,
+        "sections": sections,
+        "sectionLoudness": sectionLoudness,
+        "segments": segments,
+        "segmentPitch": segmentPitch,
+        "segmentTimbre": segmentTimbre,
+        "beats": beats,
+        "bars": bars
+    }
 
-for j in analysis["beats"]:
-    beats.append(j["start"])
+    return songData
 
-for k in analysis["bars"]:
-    bars.append(k["start"])
+def setTempo(features):
+    return features[0]["tempo"]
 
-#plt.plot(sectionTempo)
-#plt.show()
+def setEnergy(features):
+    return features[0]["energy"]
 
-#print(json.dumps(analysis))
+def setDanceability(features):
+    return features[0]["danceability"]
 
-def getTempo():
-    return tempo
+def setAcousticness(features):
+    return features[0]["acousticness"]
 
-def getEnergy():
-    return energy
-
-def getDanceability():
-    return danceability
-
-def getAcousticness():
-    return acousticness
-
-def getSectionTimes():
+def setSections(analysis):
+    sections = []
+    for c in analysis["sections"]:
+        sections.append(c["start"])
     return sections
 
-def getSectionLoudness():
+def setSectionLoudness(analysis):
+    sectionLoudness = []
+    for c in analysis["sections"]:
+        sectionLoudness.append(c["start"])
     return sectionLoudness
 
-def getSegmentTimes():
+def setSegments(analysis):
+    segments = []
+    for i in analysis["segments"]:
+        segments.append(i["start"])
     return segments
 
-def getSegmentLoudness():
-    return segmentLoudness
-
-def getSegmentPitch():
+def setSegmentPitch(analysis):
+    segmentPitch = []
+    for i in analysis["segments"]:
+        segmentPitch.append(i["pitches"])
     return segmentPitch
 
-def getSegmentTimbre():
+def setSegmentTimbre(analysis):
+    segmentTimbre = []
+    for i in analysis["segments"]:
+        segmentTimbre.append(i["timbre"])
     return segmentTimbre
 
-def getBeatTimes():
+def setBeats(analysis):
+    beats = []
+    for i in analysis["beats"]:
+        beats.append(i["start"])
     return beats
 
-def getBarTimes():
+def setBars(analysis):
+    bars = []
+    for i in analysis["bars"]:
+        bars.append(i["start"])
     return bars
-

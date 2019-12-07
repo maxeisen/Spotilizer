@@ -1,4 +1,4 @@
 import dataRetrieve
 
-energy = dataRetrieve.getEnergy()
-print(energy)
+data = dataRetrieve.dataRetrieve()
+print(data["energy"])
