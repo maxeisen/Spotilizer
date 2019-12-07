@@ -1,23 +1,30 @@
 from turtle import *
-import random
-#dur = song time #Length of the song / how long the drawing will go on for.
 
-def turn(i):
-    left = (((i & -i) << 1) & i) != 0
-    return 'L' if left else 'R'
+def tstart(turtle,swin):
+    pos = [swin.window_width(),swin.window_height()]
+    turtle.penup()
+    turtle.goto(1/2-pos[0]/2,pos[1]/2 -1/2)
+    turtle.pendown()
 
-def curve(iteration):
-    return ''.join([turn(i + 1) for i in range(2 ** iteration - 1)])
+def modelSel(lLevel):
+    if (lLevel >= -10):
+        return 'mbrot'
+    elif (-15 <= lLevel < -10):
+        return 'temp'
+    else:
+        return 'spiral'
 
-if __name__ == '__main__':
-    hideturtle()
-    speed(20)
-    i = 1
-    mincols = 5
-    maxcols = 255
-    while True:
-        if turn(i) == 'L':
-            circle(-4, 90, 36)
-        else:
-            circle(4, 90, 36)
-        i += 1
+
+
+win = Screen()
+win.setup(width=.75,height=.75)
+t = Turtle(visible= False)
+t2 = Turtle(visible= False)
+tstart(t,win)
+tstart(t2,win)
+t.showturtle()
+t2.showturtle()
+
+
+
+win.mainloop()
