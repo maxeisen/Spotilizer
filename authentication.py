@@ -7,7 +7,7 @@ import spotipy.util as util
 import json.decoder
 
 #put your username here
-username = "0000000000"
+username = "12"
 scope = 'user-modify-playback-state user-read-currently-playing user-read-playback-state'
 
 def getSpotify():
