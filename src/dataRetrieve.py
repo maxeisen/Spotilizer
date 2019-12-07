@@ -5,6 +5,7 @@ import authentication
 
 spotify = authentication.getSpotify()
 currentPlayback = spotify.current_playback()
+print(currentPlayback)
 song = currentPlayback['item']
 songID = song['id']
 
@@ -18,6 +19,7 @@ segmentTimbre = []
 beats = []
 bars = []
 sections = []
+segments = []
 
 analysis = spotify.audio_analysis(songID)
 features = spotify.audio_features([songID])
@@ -35,6 +37,7 @@ for c in analysis["sections"]:
 for i in analysis["segments"]:
     segmentPitch.append(i["pitches"])
     segmentTimbre.append(i["timbre"])
+    segments.append(i["start"])
 
 for j in analysis["beats"]:
     beats.append(j["start"])
@@ -42,10 +45,44 @@ for j in analysis["beats"]:
 for k in analysis["bars"]:
     bars.append(k["start"])
 
-print(acousticness)
-
-
 #plt.plot(sectionTempo)
 #plt.show()
 
 #print(json.dumps(analysis))
+
+def getTempo():
+    return tempo
+
+def getEnergy():
+    return energy
+
+def getDanceability():
+    return danceability
+
+def getAcousticness():
+    return acousticness
+
+def getSectionTimes():
+    return sections
+
+def getSectionLoudness():
+    return sectionLoudness
+
+def getSegmentTimes():
+    return segments
+
+def getSegmentLoudness():
+    return segmentLoudness
+
+def getSegmentPitch():
+    return segmentPitch
+
+def getSegmentTimbre():
+    return segmentTimbre
+
+def getBeatTimes():
+    return beats
+
+def getBarTimes():
+    return bars
+
