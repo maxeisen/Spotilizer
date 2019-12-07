@@ -14,7 +14,8 @@ def modelSel(lLevel):
     else:
         return 'spiral'
 
-
+class Mandelbrot:
+    def __init__
 
 win = Screen()
 win.setup(width=.75,height=.75)
