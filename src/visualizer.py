@@ -15,9 +15,17 @@ def modelSel(lLevel):
     else:
         return 'spiral'
 
+<<<<<<< HEAD
 class Mandelbrot:
     def __init__(self):
         self.__colormap = ["#FFFFFF","#000000"]
+=======
+
+
+win = Screen()
+win.setup(width=.75,height=.75)
+t = Turtle(visible= False)
+>>>>>>> origin/master
 
 class Spiralizer:
     def __init__(self,dur=120):#,colors,dur,winwidth):
