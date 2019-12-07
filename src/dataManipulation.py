@@ -18,6 +18,7 @@ segmentTimbre = []
 
 beats = []
 bars = []
+sections = []
 
 analysis = spotify.audio_analysis(songID)
 features = spotify.audio_features([songID])
@@ -31,6 +32,7 @@ acousticness = features[0]["acousticness"]
 for c in analysis["sections"]:
     sectionLoudness.append(c["loudness"])
     sectionTempo.append(c["tempo"])
+    sections.append(c["start"])
 
 for i in analysis["segments"]:
     segmentPitch.append(i["pitches"])
