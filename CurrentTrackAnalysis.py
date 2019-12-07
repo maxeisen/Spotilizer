@@ -2,12 +2,11 @@ import spotipy
 import json
 import authentication
 
-token = authentication.getToken()
+spotify = authentication.getSpotify()
 
-
-spotify = spotipy.Spotify(auth=token)
 
 currSong = spotify.current_user_playing_track()
+# print(currSong)
 currSongID = currSong['item']['id']
 # print(currSongID)
 
