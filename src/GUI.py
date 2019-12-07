@@ -1,7 +1,9 @@
 from tkinter import *
 import tkinter as tk
 import turtle
+from turtle import Turtle, Screen
 import authentication
+import visualizer
 
 spotify = authentication.getSpotify()
 print(spotify.current_playback(market=None))
@@ -46,8 +48,6 @@ class Spirals:
             return False
         else:
             return True
-
-from turtle import Turtle, Screen
 
 class Display:
     def __init__(self, screen,startx,starty):
@@ -129,13 +129,13 @@ canvas = tk.Canvas(master = root, width = 500, height = 500)
 #print(canvas)
 canvas.pack()
 #t = turtle.RawTurtle(canvas)
-imagePlay = PhotoImage(file="assets/img/play.png")
-imageForward = PhotoImage(file="assets/img/forwards.png")
-imageBackward = PhotoImage(file="assets/img/backward.png")
-imagePause = PhotoImage(file="assets/img/pause.png")
+# imagePlay = PhotoImage(file="assets/img/play.png")
+# imageForward = PhotoImage(file="assets/img/forwards.png")
+# imageBackward = PhotoImage(file="assets/img/backward.png")
+# imagePause = PhotoImage(file="assets/img/pause.png")
 frame1 = Frame(root)
 
-welcomeLabel = Label(root, text="Welcome to Spoilizer", bg="orange",fg="white")
+welcomeLabel = Label(root, text="Welcome to Spotilizer", bg="orange",fg="white")
 welcomeLabel.pack(fill=X)
 songLabel = Label(root, text="", bg="green",fg="white")
 songLabel.pack(fill=X)
@@ -147,19 +147,15 @@ topFrame.pack()
 
 #---------Various Buttons----------
 
-button1 = Button(topFrame, text="Previous", image=imageBackward, command=previous) #Positioning Button as (<FrameName>,<Text to Appear>,<Text Color>)
+button1 = Button(topFrame, text="Previous", image=None, command=previous) #Positioning Button as (<FrameName>,<Text to Appear>,<Text Color>)
 button1.pack(side=LEFT,padx=5,pady=20)
-button2 = Button(topFrame, text="Play",image=imagePlay, command=play)
+button2 = Button(topFrame, text="Play",image=None, command=play)
 button2.pack(side=LEFT,padx=5,pady=20)
-button3 = Button(topFrame, text="Pause",image=imagePause, command=pause)
+button3 = Button(topFrame, text="Pause",image=None, command=pause)
 button3.pack(side=LEFT,padx=5,pady=20)
-button5 = Button(topFrame, text="Forward",image=imageForward, command=forward)
+button5 = Button(topFrame, text="Forward",image=None, command=forward)
 button5.pack(side=LEFT,padx=5,pady=20)
 
-root.screenMessage = StringVar()
-label = Message( root, textvariable=root.screenMessage, relief=RAISED )
-root.screenMessage.set("Welcome to Spoilizer")
-label.pack(side=BOTTOM,fill=X)
 dummy = Display(canvas,1/2 - canvas.winfo_width()/2, canvas.winfo_height()/2 - 1/2)
 
 root.mainloop()#refreshing the window so that it stays on the screen
