@@ -2,7 +2,6 @@ import spotipy
 import json
 import matplotlib.pyplot as plt
 import authentication
-# import CurrentTrackAnalysis
 
 spotify = authentication.getSpotify()
 currentPlayback = spotify.current_playback()
@@ -22,11 +21,10 @@ bars = []
 analysis = spotify.audio_analysis(songID)
 features = spotify.audio_features([songID])
 
-
-energy = features[0]["energy"]
-tempo = features[0]["tempo"]
-danceability = features[0]["danceability"]
-acousticness = features[0]["acousticness"]
+tempo = features[0]["tempo"] # speed of drawing
+energy = features[0]["energy"] #colour palette saturation
+danceability = features[0]["danceability"] # colour change frequency
+acousticness = features[0]["acousticness"] # warmth/hue of colour palette
 
 for c in analysis["sections"]:
     sectionLoudness.append(c["loudness"])
@@ -42,7 +40,7 @@ for j in analysis["beats"]:
 for k in analysis["bars"]:
     bars.append(k["start"])
 
-print(energy)
+print(acousticness)
 
 
 #plt.plot(sectionTempo)
