@@ -6,11 +6,10 @@ spotify = authentication.getSpotify()
 
 
 currentPlayback = spotify.current_playback()
-print(currentPlayback)
-currSong = currentPlayback['item']
-# print(currentPlayback)
-
-# trackAnalysis = spotify.audio_analysis(currSongID)
+currentSong = currentPlayback['item']
+currentSongID = currentSong['id']
+songAnalysis = spotify.audio_analysis(currentSongID)
+print(songAnalysis)
 
 # print(spotify.track(currSongID)['name'])
 # print(results)
