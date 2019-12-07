@@ -1,7 +1,10 @@
 import spotipy
 import json
+import authentication
 
-token = "BQCQ5XDrLOHfJaZUtTKJeIe_LhrVps1YiqDV2y46QcFMUKp_shoGX5VFQg1nAQPNLviftMzM1hLjs2Zr9GekmXo1EJx6pq_XWXMO1_MZLX5Q3pT9czki0-d_CVwDzi2gtqf6x8fYr5z1tvxoog"
+token = authentication.getToken()
+
+
 spotify = spotipy.Spotify(auth=token)
 
 currSong = spotify.current_user_playing_track()
@@ -10,4 +13,5 @@ currSongID = currSong['item']['id']
 
 trackAnalysis = spotify.audio_analysis(currSongID)
 
+print(spotify.track(currSongID)['name'])
 # print(results)
