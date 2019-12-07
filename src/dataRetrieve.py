@@ -13,6 +13,8 @@ def dataRetrieve():
     analysis = spotify.audio_analysis(songID)
     features = spotify.audio_features([songID])
 
+    duration = setDuration(analysis)
+
     tempo = setTempo(features) # speed of drawing
     energy = setEnergy(features) #colour palette saturation
     danceability = setDanceability(features) # colour change frequency
@@ -29,6 +31,7 @@ def dataRetrieve():
     bars = setBars(analysis)
 
     songData = {
+        "duration": duration,
         "tempo": tempo,
         "energy": energy,
         "danceability": danceability,
@@ -43,6 +46,9 @@ def dataRetrieve():
     }
 
     return songData
+
+def setDuration(analysis):
+    return analysis["track"]["duration"]
 
 def setTempo(features):
     return features[0]["tempo"]
