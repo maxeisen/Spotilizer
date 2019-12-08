@@ -1,16 +1,19 @@
 import spotipy
 import json
+import urllib.request
 import authentication
 
 spotify = authentication.getSpotify()
 currentPlayback = spotify.current_playback()
 
-def dataRetrieve():
-    song = currentPlayback['item']
-    songID = song['id']
+def dataRetrieve(songID=currentPlayback['item']['id']):
+    song = spotify.track(songID)
+    albumID = song['album']['id']
 
     analysis = spotify.audio_analysis(songID)
     features = spotify.audio_features([songID])
+
+    albumCover = setAlbumCover(albumID)
 
     duration = setDuration(analysis)
 
@@ -30,6 +33,7 @@ def dataRetrieve():
     bars = setBars(analysis)
 
     songData = {
+        "albumCover": albumCover,
         "duration": duration,
         "tempo": tempo,
         "energy": energy,
@@ -45,6 +49,12 @@ def dataRetrieve():
     }
 
     return songData
+
+def setAlbumCover(albumID):
+    imageURL = str(spotify.album(albumID)['images'][0]['url'])
+    imageName = 'albumCover_' + imageURL[56:60] + '.gif'
+    urllib.request.urlretrieve(imageURL, imageName)
+    return imageName
 
 def setDuration(analysis):
     return analysis["track"]["duration"]

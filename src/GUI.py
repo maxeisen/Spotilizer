@@ -91,8 +91,7 @@ def turtleConvert(x, y):  # converts from turtle pixels to the complex plane
 def play():
     artistName = spotify.current_user_playing_track()['item']['album']['artists'][0]['name']
     songName= spotify.current_user_playing_track()['item']['name']
-    #root.screenMessage.set(songName + "-"+ artistName)
-    songLabel.config(text = (songName + "- "+ artistName))
+    songLabel.config(text = (songName + " - "+ artistName))
     try:
         spotify.start_playback(device_id=None, context_uri=None, uris=None, offset=None)
     except:
@@ -103,7 +102,7 @@ def previous():
     spotify.previous_track(device_id=None)
     artistName = spotify.current_user_playing_track()['item']['album']['artists'][0]['name']
     songName= spotify.current_user_playing_track()['item']['name']
-    songLabel.config(text = (songName + "- "+ artistName))
+    songLabel.config(text = (songName + " - "+ artistName))
 
 def pause():
     try:
@@ -115,7 +114,7 @@ def forward():
     spotify.next_track(device_id=None)
     artistName = spotify.current_user_playing_track()['item']['album']['artists'][0]['name']
     songName= spotify.current_user_playing_track()['item']['name']
-    songLabel.config(text = (songName + "- "+ artistName))
+    songLabel.config(text = (songName + " - "+ artistName))
 
 #image = Image.open("play.png")
 #photo = ImageTk.PhotoImage(image)
@@ -138,6 +137,9 @@ welcomeLabel = Label(root, text="Welcome to Spotilizer", bg="orange",fg="white")
 welcomeLabel.pack(fill=X)
 songLabel = Label(root, text="", bg="green",fg="white")
 songLabel.pack(fill=X)
+artistName = spotify.current_user_playing_track()['item']['album']['artists'][0]['name']
+songName= spotify.current_user_playing_track()['item']['name']
+songLabel.config(text = (songName + " - "+ artistName))
 
 topFrame = Frame(root)#definig a frame that will contain the Widgets
 topFrame.pack()

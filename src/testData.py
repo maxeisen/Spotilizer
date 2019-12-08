@@ -1,4 +1,4 @@
 import dataRetrieve
 
-data = dataRetrieve.dataRetrieve()
-print(data["duration"])
+data = dataRetrieve.dataRetrieve("2t8yVaLvJ0RenpXUIAC52d")
+print(data["albumCover"])

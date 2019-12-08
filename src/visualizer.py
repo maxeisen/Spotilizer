@@ -108,8 +108,8 @@ def mbrotDisplay(dur):
 win = Screen()
 win.setup(width=.75,height=.75)
 songProps = dataRetrieve.dataRetrieve()
+# win.bgpic(songProps["albumCover"])
 pos = [win.window_width(),win.window_height()]
 pal = colourChoice.choose_palette(songProps["danceability"],songProps["acousticness"])
 pal = colourChoice.energy_mod(pal,songProps["energy"])
 dummy = drawSpiral(songProps["duration"],songProps["sectionLoudness"])
-win.mainloop()
