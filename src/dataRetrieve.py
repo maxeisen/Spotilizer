@@ -1,6 +1,5 @@
 import spotipy
 import json
-import matplotlib.pyplot as plt
 import authentication
 
 spotify = authentication.getSpotify()
