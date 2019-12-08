@@ -1,6 +1,7 @@
 from turtle import *
 import time
 import dataRetrieve
+import colourChoice
 
 def tstart(turtle):
     turtle.penup()
@@ -35,13 +36,17 @@ class Spiralizer:
 
 def drawSpiral(dur,loudList):
     t = Turtle(visible=False)
+    t.shapesize(3,3,6)
     t.speed(9)
     tstart(t)
     spr = Spiralizer(dur)
     c = 0
     c = 0
     index = 0
+    index2 = 0
+    win.bgcolor("#"+pal[len(pal)-1])
     for ss in range(0,spr.getIts()):
+        t.color("#"+pal[index2])
         bw = c - ss
         if (bw > 0 and spr.notInSeen(bw)):
             t.setheading(90)  # 90 degrees is pointing straight up
@@ -56,7 +61,7 @@ def drawSpiral(dur,loudList):
             c += ss
             spr.addCurr(c)
             index = (index + 1)%len(loudList)
-
+        index2 = (index2+1)%(len(pal)-1)
 def turtleConvert(x, y):  # converts from turtle pixels to the complex plane
     return complex(x / 50, y / 50)
 
@@ -104,5 +109,7 @@ win = Screen()
 win.setup(width=.75,height=.75)
 songProps = dataRetrieve.dataRetrieve()
 pos = [win.window_width(),win.window_height()]
+pal = colourChoice.choose_palette(songProps["danceability"],songProps["acousticness"])
+pal = colourChoice.energy_mod(pal,songProps["energy"])
 dummy = drawSpiral(songProps["duration"],songProps["sectionLoudness"])
 win.mainloop()
