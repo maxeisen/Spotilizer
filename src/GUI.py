@@ -3,7 +3,6 @@ import tkinter as tk
 import turtle
 from turtle import Turtle, Screen
 import authentication
-import visualizer
 
 spotify = authentication.getSpotify()
 print(spotify.current_playback(market=None))
