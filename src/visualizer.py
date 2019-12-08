@@ -46,7 +46,7 @@ def drawSpiral(dur,loudList):
         if (bw > 0 and spr.notInSeen(bw)):
             t.setheading(90)  # 90 degrees is pointing straight up
             # 180 degrees means "draw a semicircle"
-            t.circle(5 * abs(loudList[index])/len(loudList), 180)
+            t.circle(5 * abs(loudList[index])/(len(loudList)/2), 180)
             c = bw
             spr.addCurr(c)
             index = (index + 1)%len(loudList)
