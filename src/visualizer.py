@@ -33,26 +33,29 @@ class Spiralizer:
     def getColor(self):
         return self.__cm
 
-def drawSpiral(dur):
+def drawSpiral(dur,loudList):
     t = Turtle(visible=False)
     t.speed(9)
     tstart(t)
     spr = Spiralizer(dur)
     c = 0
     c = 0
+    index = 0
     for ss in range(0,spr.getIts()):
         bw = c - ss
         if (bw > 0 and spr.notInSeen(bw)):
             t.setheading(90)  # 90 degrees is pointing straight up
             # 180 degrees means "draw a semicircle"
-            t.circle(5 * ss/2, 180)
+            t.circle(5 * abs(loudList[index])/len(loudList), 180)
             c = bw
             spr.addCurr(c)
+            index = (index + 1)%len(loudList)
         else:
             t.setheading(270)  # 270 degrees is straight down
-            t.circle(5 * ss/2, 180)
+            t.circle(5 * abs(loudList[index])/len(loudList), 180)
             c += ss
             spr.addCurr(c)
+            index = (index + 1)%len(loudList)
 
 def turtleConvert(x, y):  # converts from turtle pixels to the complex plane
     return complex(x / 50, y / 50)
@@ -101,5 +104,5 @@ win = Screen()
 win.setup(width=.75,height=.75)
 songProps = dataRetrieve.dataRetrieve()
 pos = [win.window_width(),win.window_height()]
-dummy = drawSpiral(songProps["duration"])
+dummy = drawSpiral(songProps["duration"],songProps["sectionLoudness"])
 win.mainloop()
