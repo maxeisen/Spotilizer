@@ -1,179 +1,23 @@
-import turtle
-from turtle import Turtle, Screen
-import time
-import dataRetrieve
-import colourChoice
 from tkinter import *
 import tkinter as tk
+import turtle
+from PIL import Image, ImageTk
 import authentication
+import dataRetrieve
+import colourChoice
+import random
+from subprocess import call
 
 spotify = authentication.getSpotify()
-
-class Display:
-    def __init__(self, screen,startx,starty):
-
-        songProps = dataRetrieve.dataRetrieve()
-        # pos = [win.window_width(),win.window_height()]
-        pal = colourChoice.choose_palette(songProps["danceability"],songProps["acousticness"])
-        pal = colourChoice.energy_mod(pal,songProps["energy"])
-        dur = 100
-        self.t = turtle.RawTurtle(canvas)
-        self.t = Turtle(visible=False)
-        self.t.shapesize(3,3,6)
-        self.t.speed(9)
-        # tstart(self.t)
-        spr = Spiralizer(dur)
-        c = 0
-        c = 0
-        index = 0
-        index2 = 0
-        # win.bgcolor("#"+pal[len(pal)-1])
-        for ss in range(0,spr.getIts()):
-            self.t.color("#"+pal[index2])
-            bw = c - ss
-            if (bw > 0 and spr.notInSeen(bw)):
-                self.t.setheading(90)  # 90 degrees is pointing straight up
-                # 180 degrees means "draw a semicircle"
-                # t.circle(5 * abs(loudList[index])/len(loudList), 180)
-                c = bw
-                spr.addCurr(c)
-                # index = (index + 1)%len(loudList)
-            else:
-                self.t.setheading(270)  # 270 degrees is straight down
-                # t.circle(5 * abs(loudList[index])/len(loudList), 180)
-                c += ss
-                spr.addCurr(c)
-                # index = (index + 1)%len(loudList)
-            index2 = (index2+1)%(len(pal)-1)
-
-
-        # self.t.setpos(startx,starty)
-        # self.t.speed(0)
-        # spr = Spirals()
-        # c = 0
-        # for ss in range(0,spr.getIts()):
-        #     bw = c - ss
-        #     if (bw > 0 and spr.notInSeen(bw)):
-        #         self.t.setheading(90)  # 90 degrees is pointing straight up
-        #         # 180 degrees means "draw a semicircle"
-        #         self.t.circle(5 * ss/2, 180)
-        #         c = bw
-        #         spr.addCurr(c)
-        #     else:
-        #         self.t.setheading(270)  # 270 degrees is straight down
-        #         self.t.circle(5 * ss/2, 180)
-        #         c += ss
-        #         spr.addCurr(c)
-
-def tstart(turtle):
-    turtle.penup()
-    turtle.goto(1/2 - pos[0]/2, 1/2)
-    turtle.pendown()
-
-# def modelSel(lLevel):
-#     if (lLevel >= -10):
-#         return 'mbrot'
-#     elif (-15 <= lLevel < -10):
-#         return 'temp'
-#     else:
-#         return 'spiral'
-
-class Spiralizer:
-    def __init__(self,dur):
-        self.__cm = ['red']#colourChoice.getPalette() #Returns the colour palette for the current song.
-        self.__factor = dur*(960/dur)#song.length*(winwidth/song.length) #Assign the length of the song to a dur variable
-        self.__seen = []
-        self.__its = int(dur)
-    def getIts(self):
-        return self.__its
-    def notInSeen(self,curr):
-        if (curr in self.__seen):
-            return False
-        else:
-            return True
-    def addCurr(self,curr):
-        self.__seen.append(curr)
-    def getColor(self):
-        return self.__cm
-
-# def drawSpiral(dur,loudList):
-#     t = Turtle(visible=False)
-#     t.shapesize(3,3,6)
-#     t.speed(9)
-#     tstart(t)
-#     spr = Spiralizer(dur)
-#     c = 0
-#     c = 0
-#     index = 0
-#     index2 = 0
-#     win.bgcolor("#"+pal[len(pal)-1])
-#     for ss in range(0,spr.getIts()):
-#         t.color("#"+pal[index2])
-#         bw = c - ss
-#         if (bw > 0 and spr.notInSeen(bw)):
-#             t.setheading(90)  # 90 degrees is pointing straight up
-#             # 180 degrees means "draw a semicircle"
-#             t.circle(5 * abs(loudList[index])/len(loudList), 180)
-#             c = bw
-#             spr.addCurr(c)
-#             index = (index + 1)%len(loudList)
-#         else:
-#             t.setheading(270)  # 270 degrees is straight down
-#             t.circle(5 * abs(loudList[index])/len(loudList), 180)
-#             c += ss
-#             spr.addCurr(c)
-#             index = (index + 1)%len(loudList)
-#         index2 = (index2+1)%(len(pal)-1)
-
-def turtleConvert(x, y):  # converts from turtle pixels to the complex plane
-    return complex(x / 50, y / 50)
-
-# class Mandelbrot:
-#     def __init__(self, dur):
-#         self.__dur = int(dur)
-#         self.__colormap = ['black', 'white']
-#         self.__cardinality = self.__dur
+songProps = dataRetrieve.dataRetrieve()
+# screen = turtle.Screen()
+# screen.screensize()
+# screen.setup(width = 1.0, height = 1.0)
 #
-#     def computeCardinality(self, c):
-#         z = 0
-#         self.__cardinality = self.__dur
-#
-#         for i in range(self.__dur):
-#             z = z * z + c
-#
-#             if abs(z) > 2:
-#                 self.__cardinality = i
-#                 return
-#     def getColor(self):
-#         if self.__cardinality == self.__dur:
-#             return self.__colormap[0]
-#         return self.__colormap[1]
-#
-# def mbrotDisplay(dur):
-#     mandelbrot = Mandelbrot(dur)
-#     t = Turtle(visible=False)
-#     t.speed(0)
-#     tstart(t)
-#     tfinish = time.time() + dur
-#     win.tracer(0)
-#     while (time.time() < tfinish):
-#         currtime = int(time.time())
-#         for y in range(-151, 151):
-#             mandelbrot.computeCardinality(turtleConvert(currtime, y))
-#             t.color(mandelbrot.getColor())
-#             t.goto(y, y)
-#         t.up()
-#         t.goto(currtime+1, 151)
-#         t.down()
-#         win.update()
-#     win.tracer(1)
+# screen.bgpic(ImageTk("albumCover.gif"))
 
 
 def play():
-    artistName = spotify.current_user_playing_track()['item']['album']['artists'][0]['name']
-    songName= spotify.current_user_playing_track()['item']['name']
-    #root.screenMessage.set(songName + "-"+ artistName)
-    songLabel.config(text = (songName + " - " + artistName))
     try:
         spotify.start_playback(device_id=None, context_uri=None, uris=None, offset=None)
     except:
@@ -182,9 +26,6 @@ def play():
 
 def previous():
     spotify.previous_track(device_id=None)
-    artistName = spotify.current_user_playing_track()['item']['album']['artists'][0]['name']
-    songName= spotify.current_user_playing_track()['item']['name']
-    songLabel.config(text = (songName + " - "+ artistName))
 
 def pause():
     try:
@@ -194,59 +35,123 @@ def pause():
 
 def forward():
     spotify.next_track(device_id=None)
-    artistName = spotify.current_user_playing_track()['item']['album']['artists'][0]['name']
-    songName= spotify.current_user_playing_track()['item']['name']
-    songLabel.config(text = (songName + " - "+ artistName))
+
+def launchVisualizer():
+    call(["python3", "visualizer2.py"])
+
+def albumDisplayUpdate():
+    albumID = spotify.current_user_playing_track()['item']['album']['id']
+    albumCoverID = dataRetrieve.setAlbumCover(albumID)
+    albumDisplay.after(0, changeAlbumArt(albumCoverID))
 
 #image = Image.open("play.png")
 #photo = ImageTk.PhotoImage(image)
 
 #screen = Screen()
 
+def changeAlbumArt(albumCoverID):
+        # print(albumCoverID)
+        albumCoverNew = ImageTk.PhotoImage(Image.open(albumCoverID))
+        # print("updating")
+        albumDisplay.configure(image = albumCoverNew)
+        albumDisplay.image = albumCoverNew
+
+def setColors(energy, danceability, acousticness):
+    # print(energy)
+    # print(danceability)
+    # print(acousticness)
+    # darkColours = ["612b16", "270e80", "66404c", "2e4d65", "2b7643", "612b91", "612bcd", "1f404c", "227643", "612bff", "470e6d", "a9404c", "0a7643", "271680", "37404c", "68404c", "612b58", "062936", "062936", "22064f", "22124f"]
+    darkColourHex = ['0','1','2','3','4','6']
+    pal = colourChoice.choose_palette(danceability, acousticness)
+    pal = colourChoice.energy_mod(pal, energy)
+    # print(pal)
+    bgColour = pal[random.randint(0,3)]
+    # print(bgColour)
+    root.config(background="#"+bgColour)
+    topFrame.config(background="#"+bgColour)
+    if (bgColour[0] in darkColourHex):
+        # print("DARK!")
+        songLabel.config(background="#"+bgColour, foreground="#ffffff")
+    else:
+        songLabel.config(background="#"+bgColour, foreground="#000000")
+    welcomeLabel.config(background="#"+bgColour, foreground="#000000")
+    buttonColour = pal[random.randint(0,3)]
+    button1.config(highlightbackground="#"+buttonColour)
+    button2.config(highlightbackground="#"+buttonColour)
+    button3.config(highlightbackground="#"+buttonColour)
+    button4.config(highlightbackground="#"+buttonColour)
+
+
+def update():
+    currSongName = songLabel.cget("text")
+    artistName = spotify.current_user_playing_track()['item']['album']['artists'][0]['name']
+    songName = spotify.current_user_playing_track()['item']['name']
+    if currSongName != (songName + " - " + artistName):
+        albumDisplayUpdate()
+        songLabel.config(text = (songName + " - " + artistName))
+        songID = spotify.current_user_playing_track()['item']['id']
+        # print(songID)
+        songProps = dataRetrieve.dataRetrieve(songID)
+        songEnergy = songProps["energy"]
+        songDanceability = songProps["danceability"]
+        songAcousticness = songProps["acousticness"]
+        setColors(songEnergy, songDanceability, songAcousticness)
+    root.after(100, update)
+
 
 root = tk.Tk()
-canvas = tk.Canvas(master = root, width = 500, height = 500)
+root.title("Spotilizer")
+root.geometry("2000x1000+200+200")
+root.config(background="#1DB954")
+# canvas = tk.Canvas(master = root, width = 500, height = 500)
 #print(canvas)
-canvas.pack()
-#t = turtle.RawTurtle(canvas)
-# imagePlay = PhotoImage(file="assets/img/play.png")
-# imageForward = PhotoImage(file="assets/img/forwards.png")
-# imageBackward = PhotoImage(file="assets/img/backward.png")
-# imagePause = PhotoImage(file="assets/img/pause.png")
+# canvas.pack()
+# t = turtle.RawTurtle(canvas)
+imagePrevious = ImageTk.PhotoImage(Image.open("assets/img/backward.png"))
+imagePlay = ImageTk.PhotoImage(Image.open("assets/img/play.png"))
+imagePause = ImageTk.PhotoImage(Image.open("assets/img/pause.png"))
+imageForward = ImageTk.PhotoImage(Image.open("assets/img/forward.png"))
 frame1 = Frame(root)
 
-welcomeLabel = Label(root, text="Welcome to Spotilizer", bg="orange",fg="white")
-welcomeLabel.pack(fill=X)
-songLabel = Label(root, text="", bg="green",fg="white")
-songLabel.pack(fill=X)
+welcomeLabel = Label(root, font= ("Proxima Nova", 10), text="© Spotilizer 2019", bg="#1DB954",fg="white")
+songLabel = Label(root, pady=40, text="", font=("Gotham", 26), bg="#1DB954",fg="white")
 artistName = spotify.current_user_playing_track()['item']['album']['artists'][0]['name']
 songName= spotify.current_user_playing_track()['item']['name']
 songLabel.config(text = (songName + " - "+ artistName))
 
 topFrame = Frame(root)#definig a frame that will contain the Widgets
 topFrame.pack()
+topFrame.config(background="#1DB954")
 #bottomFrame = Frame(root) #Similarly, definging the next Frame
 #bottomFrame.pack(side=BOTTOM)
 
 #---------Various Buttons----------
+welcomeLabel.pack(side=BOTTOM)
+albumID = spotify.current_user_playing_track()['item']['album']['id']
+albumCoverID = dataRetrieve.setAlbumCover(albumID)
+albumCoverRaw = Image.open(albumCoverID)
+albumCover = ImageTk.PhotoImage(albumCoverRaw)
+albumCoverRaw.close()
+albumDisplay = Label(topFrame, image=albumCover)
+albumDisplay.pack(side=TOP,padx=5,pady=10)
+button1 = Button(topFrame, padx=10, pady=10, highlightbackground="#ffffff", relief=RAISED, highlightthickness=0, bd=0, cursor="hand", text="Previous", image=imagePrevious, command=lambda:[previous(), albumDisplayUpdate()]) #Positioning Button as (<FrameName>,<Text to Appear>,<Text Color>)
+button1.pack(side=LEFT,padx=50,pady=20)
+button2 = Button(topFrame, padx=10, pady=10, highlightbackground="#ffffff", relief=RAISED, highlightthickness=0, bd=0, cursor="hand", text="Play", image=imagePlay, command=lambda:[play(), albumDisplayUpdate()])
+button2.pack(side=LEFT,padx=50,pady=20)
+button5 = Button(topFrame, padx=10, pady=10, relief=RAISED, cursor="hand", text="Visualizer", command=launchVisualizer)
+button5.pack(side=LEFT,padx=50,pady=20)
+button3 = Button(topFrame, padx=10, pady=10, highlightbackground="#ffffff", relief=RAISED, highlightthickness=0, bd=0, cursor="hand", text="Pause", image=imagePause, command=lambda:[pause(), albumDisplayUpdate()])
+button3.pack(side=LEFT,padx=50,pady=20)
+button4 = Button(topFrame, padx=10, pady=10, highlightbackground="#ffffff", relief=RAISED, highlightthickness=0, bd=0, cursor="hand", text="Forward", image=imageForward, command=lambda:[forward(), albumDisplayUpdate()])
+button4.pack(side=LEFT,padx=50,pady=20)
+songLabel.pack(fill=X)
 
-button1 = Button(topFrame, text="Previous", image=None, command=previous) #Positioning Button as (<FrameName>,<Text to Appear>,<Text Color>)
-button1.pack(side=LEFT,padx=5,pady=20)
-button2 = Button(topFrame, text="Play",image=None, command=play)
-button2.pack(side=LEFT,padx=5,pady=20)
-button3 = Button(topFrame, text="Pause",image=None, command=pause)
-button3.pack(side=LEFT,padx=5,pady=20)
-button5 = Button(topFrame, text="Forward",image=None, command=forward)
-button5.pack(side=LEFT,padx=5,pady=20)
+initialSongID = spotify.current_user_playing_track()['item']['id']
+initialSongProps = dataRetrieve.dataRetrieve(initialSongID)
+initialSongEnergy = initialSongProps["energy"]
+initalSongDanceability = initialSongProps["danceability"]
+initialSongAcousticness = initialSongProps["acousticness"]
+setColors(initialSongEnergy, initalSongDanceability, initialSongAcousticness)
 
-dummy = Display(canvas,1/2 - canvas.winfo_width()/2, canvas.winfo_height()/2 - 1/2)
-
-root.mainloop()#refreshing the window so that it stays on the screen
-
-# win = Screen()
-# win.setup(width=.75,height=.75)
-# songProps = dataRetrieve.dataRetrieve()
-# pos = [win.window_width(),win.window_height()]
-# pal = colourChoice.choose_palette(songProps["danceability"],songProps["acousticness"])
-# pal = colourChoice.energy_mod(pal,songProps["energy"])
-# dummy = drawSpiral(songProps["duration"],songProps["sectionLoudness"])
+root.after(100, update)
+root.mainloop()

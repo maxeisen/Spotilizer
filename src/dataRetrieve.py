@@ -50,9 +50,12 @@ def dataRetrieve(songID=currentPlayback['item']['id']):
 
     return songData
 
+def restartCurrent():
+    spotify.seek_track(0, device_id=None)
+
 def setAlbumCover(albumID):
     imageURL = str(spotify.album(albumID)['images'][0]['url'])
-    imageName = 'albumCover_' + imageURL[56:60] + '.gif'
+    imageName = 'albumCover_' + imageURL[56:60] + '.png'
     urllib.request.urlretrieve(imageURL, imageName)
     return imageName
 
