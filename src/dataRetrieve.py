@@ -50,7 +50,7 @@ def dataRetrieve(songID=currentPlayback['item']['id']):
 
     return songData
 
-def restartCurrent():
+def redurationCurrent():
     spotify.seek_track(0, device_id=None)
 
 def setAlbumCover(albumID):
@@ -77,19 +77,19 @@ def setAcousticness(features):
 def setSections(analysis):
     sections = []
     for c in analysis["sections"]:
-        sections.append(c["start"])
+        sections.append(c["duration"])
     return sections
 
 def setSectionLoudness(analysis):
     sectionLoudness = []
     for c in analysis["sections"]:
-        sectionLoudness.append(c["start"])
+        sectionLoudness.append(c["duration"])
     return sectionLoudness
 
 def setSegments(analysis):
     segments = []
     for i in analysis["segments"]:
-        segments.append(i["start"])
+        segments.append(i["duration"])
     return segments
 
 def setSegmentPitch(analysis):
@@ -107,11 +107,11 @@ def setSegmentTimbre(analysis):
 def setBeats(analysis):
     beats = []
     for i in analysis["beats"]:
-        beats.append(i["start"])
+        beats.append(i["duration"])
     return beats
 
 def setBars(analysis):
     bars = []
     for i in analysis["bars"]:
-        bars.append(i["start"])
+        bars.append(i["duration"])
     return bars
